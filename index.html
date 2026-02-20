@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Săn tìm mã bay 2022</title>
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <div class="wrap">
+    <h1>Săn tìm mã bay 2022</h1>
+    <p class="muted">Mở 3 cảnh (Rome / Tokyo / Bangkok). Tìm các hotspot để thu thập đủ 4 chữ số.</p>
+
+    <div class="card">
+      <div class="row">
+        <div>
+          <div class="label">Mã đang thu thập</div>
+          <div id="hudCode" class="hudCode">_ _ _ _</div>
+        </div>
+        <button id="btnReset" class="btn">Reset</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <a class="tile" href="play.html?city=rome">🟧 Rome</a>
+      <a class="tile" href="play.html?city=tokyo">🟦 Tokyo</a>
+      <a class="tile" href="play.html?city=bangkok">🟩 Bangkok</a>
+    </div>
+
+    <div class="card">
+      <div class="label">Cách chơi nhanh</div>
+      <ol class="muted">
+        <li>Kéo xoay cảnh, zoom vừa phải.</li>
+        <li>Bấm đúng hotspot ⇒ nhận 1 chữ số.</li>
+        <li>Bấm sai ⇒ báo sai (không mất tiến độ, tùy bạn chỉnh).</li>
+      </ol>
+    </div>
+
+    <p class="muted tiny">Tip: mỗi cảnh chỉ tải 1 GLB ⇒ đỡ nặng hơn tải 1 lần 3 file.</p>
+  </div>
+
+  <script>
+    const KEY = "SMB2022_CODE";
+    const render = () => {
+      const code = JSON.parse(localStorage.getItem(KEY) || "[]");
+      const s = (code.join("").padEnd(4, "_")).split("").join(" ");
+      document.getElementById("hudCode").textContent = s;
+    };
+    document.getElementById("btnReset").onclick = () => {
+      localStorage.removeItem(KEY);
+      localStorage.removeItem("SMB2022_USED");
+      render();
+      alert("Đã reset tiến độ.");
+    };
+    render();
+  </script>
+</body>
+</html>
