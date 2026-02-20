@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>Săn tìm mã bay 2022</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/app.css?v=22" />
+
+  <!-- model-viewer (module) -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <style>
+    /* đảm bảo full màn hình + không bị scroll trắng */
+    html, body { height: 100%; margin: 0; background: #0b1020; overflow: hidden; }
+    .viewerWrap { position: relative; width: 100%; height: calc(100vh - 56px); } /* topbar ~56px */
+    @supports (height: 100dvh){
+      .viewerWrap { height: calc(100dvh - 56px); }
+    }
+    model-viewer {
+      width: 100%;
+      height: 100%;
+      background: #0b1020;
+      display: block;
+      outline: none;
+    }
+    /* overlay để đảm bảo HUD click được */
+    .hud { position: absolute; left: 16px; bottom: 16px; z-index: 10; }
+    .topbar { position: relative; z-index: 20; }
+  </style>
+</head>
+
+<body class="babylonBody">
+  <div class="topbar">
+    <a class="link" href="index.html">← Trang chính</a>
+    <div class="title" id="sceneTitle">Scene</div>
+    <button class="btn" id="btnHint" type="button">Gợi ý</button>
+  </div>
+
+  <div class="viewerWrap">
+    <model-viewer id="mv"
+      camera-controls
+      interaction-prompt="none"
+      shadow-intensity="0"
+      exposure="1"
+      reveal="interaction"
+      loading="lazy"
+      ar="false"
+      alt="3D Scene"
+      style="background:#0b1020;">
+      <!-- Hotspots sẽ được JS bơm vào đây -->
+    </model-viewer>
+
+    <div class="hud">
+      <div class="label">Mã</div>
+      <div id="hudCode" class="hudCode">_ _ _ _</div>
+
+      <div class="row gap">
+        <button class="btn" id="btnSubmit" type="button">Submit</button>
+        <button class="btn ghost" id="btnClearScene" type="button">Xóa lựa chọn cảnh</button>
+      </div>
+
+      <div id="toast" class="toast"></div>
+
+      <div class="progress">
+        <div id="bar" class="bar" style="width:0%"></div>
+      </div>
+
+      <div class="muted tiny" id="loadText">Chạm/kéo để bắt đầu tải model…</div>
+      <div class="muted tiny">Tip: Click hotspot để nhận số (bấm sai sẽ báo).</div>
+    </div>
+  </div>
+
+  <!-- JS app: load sau cùng + chống cache -->
+  <script src="js/scenes.js?v=22"></script>
+  <script src="js/app.js?v=22"></script>
+</body>
+</html>
